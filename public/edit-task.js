@@ -42,6 +42,12 @@ editFormDOM.addEventListener("submit", async (e) => {
     const taskCompleted = taskCompletedDOM.checked;
     const taskAmt = taskAmtDOM.value;
     const taskDate = taskDateDOM.value;
+    const date_string =
+      taskDate.substring(8, 10) +
+      "_" +
+      taskDate.substring(5, 7) +
+      "_" +
+      taskDate.substring(0, 4);
     const {
       data: { task },
     } = await axios.patch(`/api/tasks/${id}`, {
@@ -50,6 +56,7 @@ editFormDOM.addEventListener("submit", async (e) => {
       amt: taskAmt,
       tdate: taskDate,
       transtype: taskPerson,
+      date_string: date_string,
     });
 
     const { _id: taskID, completed, desc, amt, tdate, transtype } = task;
