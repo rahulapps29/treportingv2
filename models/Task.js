@@ -1,13 +1,6 @@
 const mongoose = require("mongoose");
 
 const TaskSchema = new mongoose.Schema({
-  // person: {
-  //   type: String,
-  //   enum: {
-  //     values: ["Rovin", "Anju", "Aman", "Rupesh"],
-  //     // message: "{VALUE} is not supported",
-  //   },
-  // },
   tdate: {
     type: Date,
     required: [true, "must provide date"],
@@ -35,13 +28,12 @@ const TaskSchema = new mongoose.Schema({
     trim: true,
     maxlength: [200, "transtype can not be more than 200 characters"],
   },
-  // transtype: {
-  //   type: String,
-  //   enum: {
-  //     values: ["Given", "Received", "bankstatement"],
-  //     // message: "{VALUE} is not supported",
-  //   },
-  // },
+  person: {
+    type: String,
+    required: [true, "must provide transtype"],
+    trim: true,
+    maxlength: [200, "transtype can not be more than 200 characters"],
+  },
 });
 
 module.exports = mongoose.model("Task", TaskSchema);

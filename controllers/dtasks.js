@@ -91,7 +91,7 @@ const getAlldynamicIn = async (req, res) => {
   console.log(page);
   console.log(limit);
   const tasks = await result;
-  res.status(200).json({ tasks });
+  res.status(200).json({ tasks, transCount: tasks.length });
 };
 
 const getAlldynamic = asyncWrapper(getAlldynamicIn);

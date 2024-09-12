@@ -7,12 +7,10 @@ const { createCustomError } = require("../errors/custom-error");
 //   return res.status(200).json({ tasks });
 // };
 
-// const getAlldynamic = asyncWrapper(getAlldynamicIn);
-
-const getAllTasksIn = async (req, res) => {
+const getAllTasksIn = async (req, res, next) => {
   const tasks = await Task.find({});
-  //  desc: ["icici7003", "idfc1410"]
-  return res.status(200).json({ tasks });
+  console.log("b");
+  res.status(200).json({ tasks, count: tasks.length });
 };
 const getAllTasks = asyncWrapper(getAllTasksIn);
 
@@ -21,7 +19,7 @@ const createTask = asyncWrapper(async (req, res) => {
   res.status(201).json({ task });
 });
 
-const getTask = asyncWrapper(async (req, res) => {
+const getTask = asyncWrapper(async (req, res, next) => {
   const { id: taskID } = req.params;
   const task = await Task.findOne({ _id: taskID });
   if (!task) {
@@ -30,7 +28,7 @@ const getTask = asyncWrapper(async (req, res) => {
 
   res.status(200).json({ task });
 });
-const deleteTask = asyncWrapper(async (req, res) => {
+const deleteTask = asyncWrapper(async (req, res, next) => {
   const { id: taskID } = req.params;
   const task = await Task.findOneAndDelete({ _id: taskID });
   if (!task) {

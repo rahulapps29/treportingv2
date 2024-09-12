@@ -1,6 +1,7 @@
 const taskIDDOM = document.querySelector(".task-edit-id");
 const taskDescDOM = document.querySelector(".task-edit-desc");
 const taskPersonDOM = document.querySelector(".task-edit-person");
+const tasktypeDOM = document.querySelector(".task-edit-ttype");
 const taskAmtDOM = document.querySelector(".task-edit-amt");
 const taskDateDOM = document.querySelector(".task-edit-date");
 const taskCompletedDOM = document.querySelector(".task-edit-completed");
@@ -16,10 +17,19 @@ const showTask = async () => {
     const {
       data: { task },
     } = await axios.get(`/api/tasks/${id}`);
-    const { _id: taskID, completed, desc, amt, tdate, transtype } = task;
+    const {
+      _id: taskID,
+      completed,
+      desc,
+      amt,
+      tdate,
+      transtype,
+      person,
+    } = task;
 
     taskIDDOM.textContent = taskID;
-    taskPersonDOM.value = transtype;
+    taskPersonDOM.value = person;
+    tasktypeDOM.value = transtype;
     taskDescDOM.value = desc;
     taskAmtDOM.value = amt;
     taskDateDOM.valueAsDate = new Date(tdate);
@@ -38,6 +48,7 @@ editFormDOM.addEventListener("submit", async (e) => {
   e.preventDefault();
   try {
     const taskPerson = taskPersonDOM.value;
+    const taskttype = tasktypeDOM.value;
     const taskDesc = taskDescDOM.value;
     const taskCompleted = taskCompletedDOM.checked;
     const taskAmt = taskAmtDOM.value;
@@ -55,15 +66,25 @@ editFormDOM.addEventListener("submit", async (e) => {
       completed: taskCompleted,
       amt: taskAmt,
       tdate: taskDate,
-      transtype: taskPerson,
+      person: taskPerson,
+      transtype: taskttype,
       date_string: date_string,
     });
 
-    const { _id: taskID, completed, desc, amt, tdate, transtype } = task;
+    const {
+      _id: taskID,
+      completed,
+      desc,
+      amt,
+      tdate,
+      transtype,
+      person,
+    } = task;
 
     taskIDDOM.textContent = taskID;
-    taskDescDOM.value = transtype;
-    taskPersonDOM.value = desc;
+    taskDescDOM.value = desc;
+    taskPersonDOM.value = person;
+    tasktypeDOM.value = transtype;
     taskAmtDOM.value = amt;
     taskDateDOM.value = tdate;
     tempDesc = desc;
